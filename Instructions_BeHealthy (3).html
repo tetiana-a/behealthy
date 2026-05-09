@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Інструкція — BeHealthy AI Система</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fafaf7;
+  --paper: #ffffff;
+  --ink: #1a1a1a;
+  --soft: #f0ede5;
+  --accent: #ea580c;
+  --green: #16a34a;
+  --blue: #2563eb;
+  --red: #dc2626;
+  --muted: #737373;
+  --line: #e5e5e0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Paper texture */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+}
+
+main { position: relative; z-index: 1; }
+
+/* COVER */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 64px 48px;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: 'BH';
+  position: absolute;
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 700px;
+  color: var(--soft);
+  top: 50%;
+  right: -100px;
+  transform: translateY(-50%);
+  z-index: 0;
+  opacity: 0.6;
+  line-height: 1;
+}
+.cover-top, .cover-mid, .cover-bot {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+}
+
+.cover-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+.cover-tag .pulse {
+  width: 8px; height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.cover-title {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(56px, 9vw, 140px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.cover-title .italic {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: normal;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+.cover-sub {
+  font-family: 'Instrument Serif', serif;
+  font-size: 32px;
+  font-style: italic;
+  color: var(--muted);
+  max-width: 600px;
+  line-height: 1.3;
+}
+
+.cover-bot {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  padding-top: 48px;
+  border-top: 2px solid var(--ink);
+  max-width: 100%;
+}
+.cover-stat .label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.cover-stat .value {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+}
+
+/* CONTENT */
+.content {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 80px 48px;
+}
+
+.section { margin-bottom: 96px; }
+
+.section-num {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+h1 {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 56px;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+h1 .italic {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: normal;
+  color: var(--accent);
+}
+h2 {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  margin: 56px 0 16px;
+  text-transform: uppercase;
+}
+h3 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  margin: 32px 0 12px;
+  letter-spacing: -0.01em;
+}
+p { margin-bottom: 16px; max-width: 700px; }
+p.lead {
+  font-family: 'Instrument Serif', serif;
+  font-size: 24px;
+  line-height: 1.5;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 32px;
+}
+
+ul, ol { margin: 16px 0 24px 24px; }
+li { margin-bottom: 8px; }
+
+strong { font-weight: 700; }
+em { font-style: italic; }
+
+/* HOW-IT-WORKS DIAGRAM */
+.flow {
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  padding: 40px;
+  margin: 32px 0;
+  position: relative;
+}
+.flow-step {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px dashed var(--line);
+  align-items: start;
+}
+.flow-step:last-child { border-bottom: none; }
+.flow-num {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 36px;
+  color: var(--accent);
+  line-height: 1;
+}
+.flow-title {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+.flow-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* CARDS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 24px 0;
+}
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 24px;
+  transition: all 0.3s;
+  position: relative;
+}
+.card:hover {
+  border-color: var(--ink);
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.card-icon {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 36px;
+  margin-bottom: 12px;
+  display: block;
+}
+.card-title {
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.card-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* TELEGRAM EXAMPLE */
+.tg-example {
+  background: #f5f5f5;
+  border-radius: 18px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  max-width: 480px;
+  font-size: 14px;
+  white-space: pre-wrap;
+  line-height: 1.6;
+  font-family: -apple-system, sans-serif;
+  border: 1px solid var(--line);
+  position: relative;
+}
+.tg-example::before {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 20px;
+  width: 0; height: 0;
+  border-left: 12px solid #f5f5f5;
+  border-right: 0;
+  border-top: 12px solid transparent;
+}
+.tg-meta {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+/* CALLOUT */
+.callout {
+  background: var(--soft);
+  border-left: 4px solid var(--accent);
+  padding: 20px 24px;
+  margin: 24px 0;
+}
+.callout strong { color: var(--accent); }
+.callout.green { border-color: var(--green); }
+.callout.green strong { color: var(--green); }
+.callout.blue { border-color: var(--blue); }
+.callout.blue strong { color: var(--blue); }
+.callout.red { border-color: var(--red); background: #fef2f2; }
+.callout.red strong { color: var(--red); }
+
+.callout-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* TABLE */
+.tbl {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+}
+.tbl th {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+.tbl td {
+  padding: 14px 16px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+}
+.tbl tr:hover td { background: var(--soft); }
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.tag.hot { background: #fee; color: #c00; }
+.tag.warm { background: #fef3c7; color: #b45309; }
+.tag.cold { background: #e5e7eb; color: #4b5563; }
+.tag.green { background: #dcfce7; color: var(--green); }
+
+/* SHEETS DEMO */
+.sheets-demo {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  margin: 24px 0;
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.sheets-tabs {
+  background: #f8f9fa;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  padding: 0 16px;
+}
+.sheets-tab {
+  padding: 8px 16px;
+  font-size: 13px;
+  border-right: 1px solid var(--line);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.sheets-tab.active {
+  background: white;
+  font-weight: 600;
+  border-top: 2px solid var(--green);
+}
+.sheets-tab:hover { background: #fff; }
+.sheets-grid {
+  display: grid;
+  grid-template-columns: 40px repeat(6, 1fr);
+  font-size: 12px;
+}
+.sheets-cell {
+  padding: 8px 10px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sheets-cell.head {
+  background: #f8f9fa;
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.sheets-cell.row-num {
+  background: #f8f9fa;
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* DASHBOARD MOCKUP */
+.mockup {
+  background: #0a0a0a;
+  color: #fafafa;
+  padding: 24px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  margin: 24px 0;
+  border: 1px solid var(--ink);
+}
+.mockup-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: #1a1a1a;
+  margin-bottom: 16px;
+}
+.mockup-stat {
+  background: #0a0a0a;
+  padding: 16px;
+}
+.mockup-stat .l { font-size: 9px; color: #6b6b6b; letter-spacing: 0.15em; text-transform: uppercase; }
+.mockup-stat .v { font-family: 'Archivo Black', sans-serif; font-size: 32px; margin-top: 8px; }
+.mockup-stat .t { font-size: 9px; color: #22c55e; margin-top: 4px; }
+
+/* FAQ */
+.faq-item {
+  border-bottom: 1px solid var(--line);
+  padding: 24px 0;
+}
+.faq-q {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 8px;
+  display: flex;
+  gap: 12px;
+  align-items: start;
+}
+.faq-q::before {
+  content: 'Q.';
+  font-family: 'Archivo Black', sans-serif;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.faq-a {
+  margin-left: 32px;
+  color: var(--ink);
+}
+
+/* CONTACT */
+.contact {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 64px 48px;
+  margin: 96px -48px -48px;
+}
+.contact-title {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 64px;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 48px;
+  margin-top: 48px;
+}
+.contact-block .label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 12px;
+}
+.contact-block .value {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 24px;
+  line-height: 1.4;
+}
+
+/* PRINT */
+@media print {
+  body::before { display: none; }
+  .cover { min-height: auto; page-break-after: always; }
+  .section { page-break-inside: avoid; }
+  .contact { page-break-before: always; }
+  .card:hover { transform: none; box-shadow: none; }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .cover { padding: 32px 24px; }
+  .cover::before { font-size: 300px; right: -50px; }
+  .cover-bot { grid-template-columns: repeat(2, 1fr); }
+  .content { padding: 48px 24px; }
+  h1 { font-size: 36px; }
+  h2 { font-size: 24px; }
+  .cards { grid-template-columns: 1fr; }
+  .contact { margin: 64px -24px -24px; padding: 48px 24px; }
+  .contact-title { font-size: 40px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 24px; }
+  .sheets-grid { font-size: 10px; }
+  .flow-step { grid-template-columns: 40px 1fr; gap: 12px; }
+  .flow-num { font-size: 28px; }
+}
+
+/* SCROLL ANIMATIONS */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s, transform 0.8s;
+}
+.reveal.shown {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+<main>
+
+<!-- COVER -->
+<section class="cover">
+  <div class="cover-top">
+    <div class="cover-tag">
+      <span class="pulse"></span>
+      <span>BeHealthy · Інструкція для адміністраторів · 2026</span>
+    </div>
+  </div>
+
+  <div class="cover-mid">
+    <h1 class="cover-title">Як<br>працює<br><span class="italic">система</span></h1>
+    <p class="cover-sub">Розумна голосова AI для прозвону пацієнтів програми «Скринінг здоров'я 40+».<br>Все що потрібно знати — на 10 сторінок.</p>
+  </div>
+
+  <div class="cover-bot">
+    <div class="cover-stat">
+      <div class="label">Що автоматизовано</div>
+      <div class="value">100%</div>
+    </div>
+    <div class="cover-stat">
+      <div class="label">Дзвінків на день</div>
+      <div class="value">∞</div>
+    </div>
+    <div class="cover-stat">
+      <div class="label">Відділень</div>
+      <div class="value">9</div>
+    </div>
+    <div class="cover-stat">
+      <div class="label">Ваших дій</div>
+      <div class="value">3</div>
+    </div>
+  </div>
+</section>
+
+<div class="content">
+
+<!-- SECTION 1: ЩО ЦЕ ТАКЕ -->
+<section class="section reveal">
+  <div class="section-num">// 01 — Знайомство</div>
+  <h1>Що це <span class="italic">взагалі</span> таке?</h1>
+  <p class="lead">У вас тепер є штучний інтелект, який сам телефонує пацієнтам, веде з ними розмову українською мовою, і записує результат у Google Таблицю.</p>
+
+  <h3>Простими словами:</h3>
+  <p>Раніше адміністратор клініки <em>сам</em> мав дзвонити сотням пацієнтів, розповідати про програму «Скринінг 40+», питати про Дію, записувати результати в зошит чи Excel.</p>
+  <p>Тепер є <strong>Вікторія</strong> — голосовий AI-асистент. Вона:</p>
+  <ul>
+    <li>Сама дзвонить пацієнтам зі списку</li>
+    <li>Веде розмову природньою українською мовою</li>
+    <li>Розповідає про програму «Скринінг 40+»</li>
+    <li>Питає чи є Дія, чи готовий записатися</li>
+    <li>Записує результат у Google Таблицю</li>
+    <li>Якщо пацієнт зацікавлений — присилає вам повідомлення в Telegram</li>
+  </ul>
+
+  <div class="callout green">
+    <div class="callout-title">✓ Ваш єдиний обов'язок</div>
+    Передзвонювати тим, кого Вікторія позначила як «Гарячий» — щоб записати на скринінг. Все інше робить система.
+  </div>
+</section>
+
+<!-- SECTION 2: ЯК ЦЕ ПРАЦЮЄ -->
+<section class="section reveal">
+  <div class="section-num">// 02 — Принцип роботи</div>
+  <h1>Як це <span class="italic">працює</span></h1>
+  <p class="lead">Уявіть, що у вас є невидимий помічник, який знає сценарій розмови, і вміє говорити голосом живої людини.</p>
+
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-num">01</div>
+      <div>
+        <div class="flow-title">Ви додаєте пацієнтів у Google Таблицю</div>
+        <div class="flow-desc">У вкладку «Прозвон» — ім'я, телефон, відділення. Решта робиться автоматично.</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">02</div>
+      <div>
+        <div class="flow-title">Система автоматично починає дзвонити</div>
+        <div class="flow-desc">Кожні 5 хвилин система перевіряє таблицю, знаходить нових пацієнтів і дзвонить через AI-Вікторію.</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">03</div>
+      <div>
+        <div class="flow-title">Вікторія розмовляє з пацієнтом</div>
+        <div class="flow-desc">Вітається по імені, розповідає про програму, питає чи є Дія, чи готовий записатися.</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">04</div>
+      <div>
+        <div class="flow-title">Результат записується у Таблицю</div>
+        <div class="flow-desc">У вкладку «Виконано» — статус (Зацікавлений/Не зацікавлений), тип ліда (Гарячий/Теплий/Холодний), короткий опис розмови.</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">05</div>
+      <div>
+        <div class="flow-title">Якщо лід ГАРЯЧИЙ — вам приходить Telegram</div>
+        <div class="flow-desc">З усіма даними пацієнта і готовою фразою для дзвінка. Ви передзвонюєте — записуєте на скринінг.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: GOOGLE ТАБЛИЦЯ -->
+<section class="section reveal">
+  <div class="section-num">// 03 — Google Таблиця</div>
+  <h1>Як працювати з <span class="italic">таблицею</span></h1>
+  <p class="lead">Це ваш центр керування. Тут пацієнти, тут результати, тут все. 4 вкладки — кожна має свою задачу.</p>
+
+  <h2>Вкладка 1 — «Прозвон»</h2>
+  <p><strong>Що це:</strong> список пацієнтів кому потрібно подзвонити. Ви наповнюєте її — система її обробляє.</p>
+
+  <div class="sheets-demo">
+    <div class="sheets-tabs">
+      <div class="sheets-tab active">Прозвон</div>
+      <div class="sheets-tab">Виконано</div>
+      <div class="sheets-tab">Логи</div>
+      <div class="sheets-tab">Callback</div>
+    </div>
+    <div class="sheets-grid">
+      <div class="sheets-cell head row-num"></div>
+      <div class="sheets-cell head">Ім'я клієнта</div>
+      <div class="sheets-cell head">Телефон</div>
+      <div class="sheets-cell head">Відділення</div>
+      <div class="sheets-cell head">Статус</div>
+      <div class="sheets-cell head">В роботі</div>
+      <div class="sheets-cell head">Спроба</div>
+
+      <div class="sheets-cell row-num">1</div>
+      <div class="sheets-cell">Олена Ткаченко</div>
+      <div class="sheets-cell">+380501234567</div>
+      <div class="sheets-cell">Луцьк, Львівська 73</div>
+      <div class="sheets-cell"><span class="tag green">Новий</span></div>
+      <div class="sheets-cell">FALSE</div>
+      <div class="sheets-cell">0</div>
+
+      <div class="sheets-cell row-num">2</div>
+      <div class="sheets-cell">Микола Іваненко</div>
+      <div class="sheets-cell">+380672345678</div>
+      <div class="sheets-cell">Ковель, Шевченка 9</div>
+      <div class="sheets-cell"><span class="tag hot">Зацікавлений</span></div>
+      <div class="sheets-cell">FALSE</div>
+      <div class="sheets-cell">1</div>
+
+      <div class="sheets-cell row-num">3</div>
+      <div class="sheets-cell">Юлія Романюк</div>
+      <div class="sheets-cell">+380939876543</div>
+      <div class="sheets-cell">Маневичі</div>
+      <div class="sheets-cell"><span class="tag warm">Передзвонити</span></div>
+      <div class="sheets-cell">FALSE</div>
+      <div class="sheets-cell">1</div>
+    </div>
+  </div>
+
+  <h3>Як додати нового пацієнта:</h3>
+  <ol>
+    <li>Відкрийте Google Таблицю</li>
+    <li>Перейдіть на вкладку <strong>«Прозвон»</strong></li>
+    <li>Знайдіть перший порожній рядок</li>
+    <li>Заповніть:
+      <ul style="margin-top: 4px;">
+        <li><strong>Ім'я клієнта</strong> — як буде звертатися Вікторія («Олена Ткаченко»)</li>
+        <li><strong>Телефон</strong> — у форматі <code>+380XXXXXXXXX</code> (з плюсом!)</li>
+        <li><strong>Відділення</strong> — точна адреса (напр. «м. Луцьк, вул. Львівська, 73»)</li>
+        <li><strong>Телефон відділення</strong> — для довідки пацієнтові</li>
+        <li><strong>Статус</strong> — обов'язково <span class="tag green">Новий</span></li>
+        <li><strong>В роботі</strong> — FALSE</li>
+        <li><strong>Спроба</strong> — 0</li>
+        <li><strong>Max спроб</strong> — 3</li>
+      </ul>
+    </li>
+    <li>Збережіть. <strong>Все.</strong> Через 5 хвилин система сама подзвонить.</li>
+  </ol>
+
+  <div class="callout">
+    <div class="callout-title">⚡ Важливо про телефон</div>
+    Завжди починайте телефон з <strong>'+380...</strong> (з апострофом перед плюсом). Інакше Google Sheets перетворить його на число і система не знайде пацієнта.
+  </div>
+
+  <h2>Вкладка 2 — «Виконано»</h2>
+  <p><strong>Що це:</strong> результати дзвінків. Заповнюється <em>автоматично</em>. Вам не треба редагувати — тільки переглядати.</p>
+
+  <table class="tbl">
+    <thead>
+      <tr>
+        <th>Колонка</th>
+        <th>Що означає</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Ім'я</strong></td><td>Хто пацієнт</td></tr>
+      <tr><td><strong>Телефон</strong></td><td>Його номер</td></tr>
+      <tr><td><strong>Дата дзвінка</strong></td><td>Коли був дзвінок</td></tr>
+      <tr><td><strong>Час дзвінка</strong></td><td>О котрій</td></tr>
+      <tr><td><strong>Статус</strong></td><td>Що сказав пацієнт (Зацікавлений / Не зацікавлений / Передзвонити пізніше / тощо)</td></tr>
+      <tr><td><strong>Тип ліда</strong></td><td>🔥 Гарячий / 📞 Теплий / ❄️ Холодний</td></tr>
+      <tr><td><strong>Короткий опис</strong></td><td>Що відбулось у розмові — короткий звіт від Вікторії</td></tr>
+      <tr><td><strong>Оператор перевірив</strong></td><td>YES/NO — позначте YES коли подзвонили клієнту</td></tr>
+      <tr><td><strong>Коментар оператора</strong></td><td>Ваші замітки після дзвінка («Записаний на 12.05 о 14:00»)</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Вкладка 3 — «Логи»</h2>
+  <p><strong>Що це:</strong> технічний журнал. Туди записуються всі завершення дзвінків, помилки, старти. Зазвичай дивитись не треба — тільки якщо щось зламалось.</p>
+
+  <h2>Вкладка 4 — «Callback»</h2>
+  <p><strong>Що це:</strong> якщо пацієнт сказав «передзвоніть мені у п'ятницю о 15:00» — запис автоматично потрапляє сюди з цим часом. Ви бачите кому коли передзвонити.</p>
+</section>
+
+<!-- SECTION 4: TELEGRAM -->
+<section class="section reveal">
+  <div class="section-num">// 04 — Telegram сповіщення</div>
+  <h1>Як читати <span class="italic">Telegram</span> повідомлення</h1>
+  <p class="lead">Система автоматично шле вам у Telegram групу 4 типи повідомлень. Кожне має чітку інструкцію — що з ним робити.</p>
+
+  <h2>1. 🔥 НОВИЙ ПАЦІЄНТ — потрібно подзвонити</h2>
+  <div class="tg-meta">→ Що робити: дзвонити негайно</div>
+  <div class="tg-example">🔥 НОВИЙ ПАЦІЄНТ — ПОТРІБНО ПОДЗВОНИТИ
+
+📋 ЩО СТАЛОСЯ:
+Олена Ткаченко погодилась пройти скринінг сорок плюс
+і чекає Вашого дзвінка для запису.
+
+📞 ЗАТЕЛЕФОНУЙТЕ КЛІЄНТУ:
+Олена Ткаченко
++380501234501
+
+🏥 ВІДДІЛЕННЯ ДЛЯ ЗАПИСУ:
+м. Луцьк, вул. Львівська, 73
+
+⏰ КОЛИ ДЗВОНИТИ:
+Якомога швидше — найкраще протягом години.
+
+📝 ЩО СКАЗАТИ:
+«Добрий день, Олено! Це адміністратор клініки Біхелсі.
+Ви розмовляли з нашим представником про скринінг
+сорок плюс. Я дзвоню підібрати зручний для Вас час.»
+
+📅 09.05.2026 14:32</div>
+
+  <div class="callout green">
+    <div class="callout-title">✓ Що з цим робити</div>
+    1. Подзвоніть пацієнтові <strong>протягом 1 години</strong> після цього повідомлення<br>
+    2. Скажіть готову фразу з повідомлення<br>
+    3. Узгодьте зручний час візиту<br>
+    4. Запишіть у систему клініки<br>
+    5. У Google Таблиці «Виконано» поставте <strong>Оператор перевірив = YES</strong>
+  </div>
+
+  <h2>2. 📞 ПЕРЕДЗВОНИТИ ПАЦІЄНТУ</h2>
+  <div class="tg-meta">→ Що робити: подзвонити в указаний час</div>
+  <div class="tg-example">📞 ПЕРЕДЗВОНИТИ ПАЦІЄНТУ — Скринінг сорок плюс
+
+📋 ЩО СТАЛОСЯ:
+Олена Ткаченко зацікавилась програмою, але не може
+говорити зараз. Просила передзвонити пізніше.
+
+⏰ КОЛИ ПЕРЕДЗВОНИТИ:
+завтра після обіду
+
+📞 КОНТАКТ:
+Олена Ткаченко
++380501234501
+
+🏥 ВІДДІЛЕННЯ:
+м. Луцьк, вул. Львівська, 73</div>
+
+  <div class="callout blue">
+    <div class="callout-title">📅 Що з цим робити</div>
+    1. Запишіть у календар час передзвону<br>
+    2. У вказаний день/час подзвоніть клієнту<br>
+    3. Якщо знов попросив передзвонити — поставте новий час<br>
+    4. Якщо погодився — запишіть на скринінг
+  </div>
+
+  <h2>3. ⚠️ ПОТРІБНО ПЕРЕВІРИТИ ВРУЧНУ</h2>
+  <div class="tg-meta">→ Що робити: розібратися самостійно</div>
+  <div class="tg-example">⚠️ ПОТРІБНО ПЕРЕВІРИТИ ВРУЧНУ
+
+📋 ЩО СТАЛОСЯ:
+Дзвінок був, але система не змогла визначити результат.
+Можливо: пацієнт мовчав, обірвався зв'язок,
+або відповідь була нестандартна.
+
+🔍 ЩО ЗРОБИТИ:
+1. Зайдіть у вкладку «Виконано» Google Sheets
+2. Знайдіть рядок з телефоном +380501234501
+3. Послухайте запис дзвінка у системі Happ
+4. Самостійно подзвоніть клієнту якщо потрібно
+5. Заповніть стовпець «Оператор перевірив» → YES</div>
+
+  <div class="callout red">
+    <div class="callout-title">⚠️ Що з цим робити</div>
+    Ці випадки трапляються рідко (1-2%) — наприклад коли пацієнт сильно нервує або з'єднання погане. Просто зробіть як написано в інструкції в самому повідомленні.
+  </div>
+
+  <h2>4. 🔁 ПОВТОРНІ ДЗВІНКИ</h2>
+  <div class="tg-meta">→ Що робити: НІЧОГО (інформативне)</div>
+  <div class="tg-example">🔁 ПОВТОРНІ ДЗВІНКИ — система знову спробує
+
+📋 ЩО СТАЛОСЯ:
+Раніше Вікторія дзвонила цим клієнтам, але вони
+не взяли трубку. Минуло достатньо часу — система
+автоматично спробує ще раз.
+
+📞 БУДУТЬ ПЕРЕДЗВОНЕНІ (3 пацієнти):
+• Таня Гриценко — +380939392881
+• Микола Іваненко — +380672345602
+• Анна Гриценко — +380501234567
+
+💡 ЦЕ ІНФО ДЛЯ ВАС — ДІЯТИ НЕ ПОТРІБНО
+Система передзвонить сама протягом найближчого часу.</div>
+
+  <div class="callout">
+    <div class="callout-title">💡 Що з цим робити</div>
+    <strong>Нічого.</strong> Це інформативне повідомлення — щоб ви знали що робить система. Якщо клієнт з цього списку нарешті відповість — вам прийде окреме повідомлення (Гарячий або Теплий лід).
+  </div>
+</section>
+
+<!-- SECTION 5: ТИПИ ЛІДІВ -->
+<section class="section reveal">
+  <div class="section-num">// 05 — Типи лідів</div>
+  <h1>Які бувають <span class="italic">ліди</span></h1>
+  <p class="lead">Вікторія сама визначає тип кожного пацієнта на основі розмови. Ви бачите тип у Telegram і у Таблиці.</p>
+
+  <div class="cards">
+    <div class="card">
+      <span class="card-icon">🔥</span>
+      <div class="card-title">Гарячий лід</div>
+      <div class="card-desc">Пацієнт має сповіщення в Дії і прямо погодився записатися. <strong>Дзвоніть протягом 1 години.</strong></div>
+    </div>
+    <div class="card">
+      <span class="card-icon">📞</span>
+      <div class="card-title">Теплий лід</div>
+      <div class="card-desc">Пацієнт цікавиться, але не готовий зараз — попросив передзвонити пізніше або не має Дії. <strong>Зв'язатись у вказаний час.</strong></div>
+    </div>
+    <div class="card">
+      <span class="card-icon">❄️</span>
+      <div class="card-title">Холодний лід</div>
+      <div class="card-desc">Пацієнт відмовився або номер невірний. <strong>Нічого робити не треба</strong> — система не буде дзвонити повторно.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">⏳</span>
+      <div class="card-title">Не додзвонилися</div>
+      <div class="card-desc">Пацієнт не взяв трубку. Система <strong>сама</strong> подзвонить ще 1-2 рази через 2 і 24 години.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: ROUTINE -->
+<section class="section reveal">
+  <div class="section-num">// 06 — Ваш день</div>
+  <h1>Що робити <span class="italic">щодня</span></h1>
+  <p class="lead">Ваша щоденна рутина — 3 простих кроки, по 10-15 хвилин разом.</p>
+
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-num">☀</div>
+      <div>
+        <div class="flow-title">Зранку (5 хв)</div>
+        <div class="flow-desc">
+          <strong>Перевір Telegram</strong> — чи є нічні Гарячі ліди або заплановані передзвони.<br>
+          Подзвоніть Гарячим зранку поки вони на роботі/вдома.
+        </div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">📞</div>
+      <div>
+        <div class="flow-title">Протягом дня (за фактом)</div>
+        <div class="flow-desc">
+          <strong>Реагуйте на 🔥 НОВИЙ ПАЦІЄНТ</strong> — щойно прийшло, дзвоніть клієнту протягом години.<br>
+          Записуйте на скринінг, ставте у «Виконано» <strong>Оператор перевірив = YES</strong>.
+        </div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">🌙</div>
+      <div>
+        <div class="flow-title">Ввечері (10 хв)</div>
+        <div class="flow-desc">
+          <strong>Перевір таблицю «Виконано»</strong> за день. Чи всі Гарячі ліди оброблені (Оператор перевірив = YES)?<br>
+          Якщо ні — або зробіть зараз, або ставте у план на завтра.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout green">
+    <div class="callout-title">✓ Метрики які варто відстежувати</div>
+    • Скільки Гарячих лідів на день<br>
+    • Який % Гарячих ви закрили в запис на скринінг<br>
+    • Чи є передзвони у Callback вкладці які ви забули зробити
+  </div>
+</section>
+
+<!-- SECTION 7: ЧОГО НЕ РОБИТИ -->
+<section class="section reveal">
+  <div class="section-num">// 07 — Помилки</div>
+  <h1>Чого <span class="italic">не робити</span></h1>
+  <p class="lead">Система розумна, але потребує дисципліни. Ось 5 найчастіших помилок які ламають усе.</p>
+
+  <div class="cards">
+    <div class="card">
+      <span class="card-icon">❌</span>
+      <div class="card-title">Не міняти статус «В роботі»</div>
+      <div class="card-desc">Колонка «В роботі» — для системи. Не редагуйте її вручну. Інакше система може повторно дзвонити одному й тому ж пацієнту.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">❌</span>
+      <div class="card-title">Не міняти статус на «Новий» вручну</div>
+      <div class="card-desc">Якщо хочете щоб системою повторно подзвонила — використайте кнопку Retry або зробіть копію рядка з новим Спроба=0.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">❌</span>
+      <div class="card-title">Не видаляти рядки з «Виконано»</div>
+      <div class="card-desc">Це історія — звітність, аналітика. Якщо помилка — додайте коментар, але не видаляйте.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">❌</span>
+      <div class="card-title">Не вписувати телефон без апострофа</div>
+      <div class="card-desc">Завжди <code>'+380...</code> з апострофом перед плюсом. Інакше система не знайде пацієнта.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">❌</span>
+      <div class="card-title">Не ігнорувати ⚠️ повідомлення</div>
+      <div class="card-desc">Якщо прийшло «Перевірити вручну» — обов'язково подивіться в таблиці що там сталось і обробіть рядок самостійно.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">❌</span>
+      <div class="card-title">Не додавати дублікати телефонів</div>
+      <div class="card-desc">Якщо два пацієнти мають один телефон — система буде плутатися. Виправте у базі перед додаванням.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 8: FAQ -->
+<section class="section reveal">
+  <div class="section-num">// 08 — Питання</div>
+  <h1>Часті <span class="italic">питання</span></h1>
+
+  <div class="faq-item">
+    <div class="faq-q">Скільки коштує дзвінок?</div>
+    <div class="faq-a">Це залежить від тарифу Happ.tools. Зазвичай 1-3 грн за хвилину розмови. Якщо в день 200 дзвінків по 2 хв середньо — це 800-1200 грн на день.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Що якщо Вікторія сказала щось неправильне?</div>
+    <div class="faq-a">Кожен дзвінок автоматично записується. Можна послухати запис у системі Happ → Conversations. Якщо помилка систематична — повідомте розробника, він виправить промт Вікторії.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Що буде якщо Telegram бот зламається?</div>
+    <div class="faq-a">Гарячі ліди все одно записуються у Google Таблицю «Виконано». Просто переглядайте таблицю кожні 1-2 години — там буде вся інформація.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Чи можна змінити час обзвону (наприклад тільки з 10 до 18)?</div>
+    <div class="faq-a">Так — система вже налаштована дзвонити з 9:00 до 19:00 (Україна) з понеділка по суботу. Неділя і вечір — пауза. Якщо потрібно змінити — повідомте розробника.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Що якщо пацієнт каже «вже подзвонив адміністратор» — а я не дзвонила?</div>
+    <div class="faq-a">Це може бути коли два адміністратори бачать одну Telegram-групу. Перевірте чи інший адміністратор не подзвонив. У майбутньому можна налаштувати окремі групи для кожного відділення.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Що якщо я хочу побачити запис розмови?</div>
+    <div class="faq-a">Зайдіть на Happ.tools → Calls → знайдіть розмову за датою/телефоном → натисніть «Play recording». Усі розмови зберігаються 30 днів.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Що робити якщо клієнт скаржиться «дзвонив робот»?</div>
+    <div class="faq-a">Скажіть що це наш AI-помічник, який допомагає інформувати про програму. Це нормальна практика для медичних клінік. Якщо клієнт незадоволений — занесіть телефон у «Чорний список» (нова вкладка в Таблиці яку можна додати).</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Як додати багато пацієнтів одразу?</div>
+    <div class="faq-a">Скопіюйте дані з Excel або іншої таблиці і вставте у «Прозвон». Головне — щоб формат колонок співпадав. Можна додавати по 50-100 рядків одразу.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Що з даними пацієнтів — це безпечно?</div>
+    <div class="faq-a">Дані зберігаються в Google Таблиці (вашій), повідомлення в Telegram (вашій групі), запис розмов на Happ (30 днів). Жодна стороння особа не має доступу. Все відповідно до GDPR/закону про захист персональних даних.</div>
+  </div>
+</section>
+
+<!-- SECTION 9: ДОПОМОГА -->
+<section class="section reveal">
+  <div class="section-num">// 09 — Якщо щось зламалось</div>
+  <h1>Що робити якщо <span class="italic">щось не так</span></h1>
+  <p class="lead">Першим ділом — не панікуйте. Більшість проблем вирішується перевіркою 3 речей.</p>
+
+  <h3>Чек-лист «система не дзвонить»:</h3>
+  <ol>
+    <li>Зайдіть у Google Таблицю «Прозвон» — чи є рядки зі статусом «Новий»?</li>
+    <li>Чи стовпець «В роботі» = FALSE для них?</li>
+    <li>Який зараз час? (система працює тільки з 9:00 до 19:00, пн-сб)</li>
+    <li>Чи був баланс у Happ для здійснення дзвінків?</li>
+  </ol>
+
+  <h3>Чек-лист «не приходить Telegram»:</h3>
+  <ol>
+    <li>Чи Telegram у вас не «Mute»? (іконка дзвіночка зверху)</li>
+    <li>Чи бот <strong>не заблокований</strong> у Telegram?</li>
+    <li>Чи в групі є інші адміністратори (вони отримують чи ні)?</li>
+    <li>Подивіться у Google Таблицю «Виконано» — там результат точно є.</li>
+  </ol>
+
+  <h3>Чек-лист «дзвінок іде, але не записується»:</h3>
+  <ol>
+    <li>Подивіться у вкладку «Логи» Google Таблиці — чи є записи з помилками?</li>
+    <li>Зайдіть на Happ.tools → Calls — чи є дзвінок з потрібним телефоном?</li>
+    <li>Якщо у Happ є, у Таблиці нема — повідомте розробника, це баг системи.</li>
+  </ol>
+
+  <div class="callout red">
+    <div class="callout-title">🆘 Куди писати якщо щось серйозне</div>
+    Якщо нічого з вище не допомогло — пишіть розробникові з:<br>
+    1. Скрін Google Таблиці<br>
+    2. Скрін Telegram<br>
+    3. Опис що саме не працює<br>
+    4. Час коли проблема почалась
+  </div>
+</section>
+
+</div>
+
+<!-- CONTACT -->
+<section class="contact">
+  <div class="content" style="padding: 0;">
+    <div class="cover-tag" style="color: #aaa;">
+      <span class="pulse"></span>
+      <span>Система готова. Працює 24/7.</span>
+    </div>
+    <h1 class="contact-title">Тепер<br>усе <span class="italic" style="color: #fb923c;">просто</span></h1>
+    <p style="font-size: 18px; color: #aaa; max-width: 600px; line-height: 1.6;">Вікторія дзвонить. Сповіщення приходять. Гарячі ліди ваші. Ваша робота — тільки записати їх на скринінг.</p>
+
+    <div class="contact-grid">
+      <div class="contact-block">
+        <div class="label">Зробила Біхелсі</div>
+        <div class="value">9 відділень<br>Луцьк · Львів · Ковель<br>Ратне · Маневичі · Стара Вижівка</div>
+      </div>
+      <div class="contact-block">
+        <div class="label">Технологія</div>
+        <div class="value">Voice AI Happ.tools<br>n8n + Google Sheets<br>Telegram Bot · 2026</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 64px; padding-top: 24px; border-top: 1px solid #333; font-size: 11px; color: #666; letter-spacing: 0.2em; text-transform: uppercase;">
+      © 2026 BeHealthy AI System · Вікторія v3 · Інструкція для адміністраторів v1.0
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('shown');
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+// Sheets tabs interactivity
+document.querySelectorAll('.sheets-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.sheets-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
